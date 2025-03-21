@@ -1,25 +1,4 @@
-#include<SoftSerial.h>
-SoftSerial S_Serial(PB0, PA0, 3);
-
-void(* resetMCU) (void) = 0;
-
-void set_rs(int rs) {                             // функция изменения параметра скорость/дальность
-  String range_speed = String(rs);
-  String at = "AT+RATE=";
-  at.concat(range_speed);
-  S_Serial.println(at);
-  Serial.print("Скорость/Дальность = ");
-  Serial.println(range_speed);
-}
-
-void send_command(String command) {               // функиця отправки AT-команды в Е52
-  S_Serial.println(command);
-  delay(100);
-  while (S_Serial.available()) {
-    byte buff123 = S_Serial.read();
-    Serial.write(buff123);
-  }
-}
+#include "lib_LoRa_mouse_net_test.h"
 
 void setup() {
   Serial.begin(115200);
