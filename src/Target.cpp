@@ -31,7 +31,7 @@ void loop() {
 
     flag_router++;
     if (flag_router == 50) {
-      send_command("AT+ROUTER_READ=?");
+      send_command("AT+ROUTER_READ=?");                   // выводим информацию о таблице маршрутизации
       flag_router = 0;
     }
 
@@ -41,7 +41,7 @@ void loop() {
     int i = 0;
     String test = "nothing";
 
-    while (S_Serial.available()) {
+    while (S_Serial.available()) {                        // записываем пакет исключая преамбулу (9 символов)
       byte buff123 = S_Serial.read();
       del_preamb++;
       if (del_preamb >= 9) {
@@ -65,10 +65,7 @@ void loop() {
         set_rs(2);
         butt_count = 0;
       }
-      while (S_Serial.available()) {
-        byte buff123 = S_Serial.read();
-        Serial.write(buff123);
-      }
+      read_SSerial();
       delay(500);
     }
 
@@ -109,7 +106,7 @@ void loop() {
       Serial.println(text); //
       Serial.println("tftPrintln(Mesh сеть подключена)");
 
-      if (sendd.startsWith("ALL PACK END") == true) {
+      if (sendd.startsWith("ALL PACK END") == true) {                     // отрабатываем окончание передачи
         String text = "Принято пакетов:" ;
         text.concat(String(tx_pack));
         Serial.println(text); //

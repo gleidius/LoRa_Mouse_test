@@ -109,11 +109,11 @@ Serial.println("Режим проведения теста");
    
    flag_router++;
 if(flag_router == 5){
-  send_command("AT+ROUTER_READ=?");
+  send_command("AT+ROUTER_READ=?");                  // выводим информацию о таблице маршрутизации
     flag_router=0;
   }
    
-if (digitalRead(PB4)==true){
+if (digitalRead(PB4)==true){                         // команда на перезапуск (пока что не работает)
   S_Serial.println("RESTART");
   Serial.println("RESTART");
   delay(100);
@@ -121,7 +121,7 @@ if (digitalRead(PB4)==true){
 
   if(millis()-start__time>=300000){                 // устанавливаем длительность теста равную 5 минутам
     while(true){
-    S_Serial.println("ALL PACK END");
+    S_Serial.println("ALL PACK END");               // спамим командой окончания пакетов
   delay(100);
   //Читаем ответ
   while(S_Serial.available()){
@@ -150,7 +150,7 @@ S_Serial.println("56.45205 84.96131 450 1.5 50 2");       // отправляе�
    sendd = String(buff_send);
    
    
-   if (sendd.startsWith("SUCCESS")==true){
+   if (sendd.startsWith("SUCCESS")==true){            // отрабатываем успешную передачу пакета
     Serial.println("Пакет доставлен"); //
   
     }
@@ -159,7 +159,7 @@ S_Serial.println("56.45205 84.96131 450 1.5 50 2");       // отправляе�
     
       }
 
-   if(digitalRead(PC15)==false){
+   if(digitalRead(PC15)==false){                      // прерывание теста при переключении PC15
    Serial.println("Тест досрочно завершен");
    String text = "Отправлено пакетов:" ;
    text.concat(String(scet));

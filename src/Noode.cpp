@@ -26,11 +26,7 @@ void loop() {
         switch_count = 16;
       }
 
-      delay(100);
-      while (S_Serial.available()) {
-        byte buff123 = S_Serial.read();
-        Serial.write(buff123);
-      }
+      read_SSerial();
       delay(500);
     }
 
@@ -47,11 +43,8 @@ void loop() {
         set_rs(2);
         butt_count = 0;
       }
-      //Читаем ответ
-      while (S_Serial.available()) {
-        byte buff123 = S_Serial.read();
-        Serial.write(buff123);
-      }
+ 
+      read_SSerial();
       delay(500);
     }
   }
