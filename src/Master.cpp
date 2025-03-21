@@ -21,7 +21,6 @@ void setup() {
 
 void loop(){
 bool connect_s = 0;
-int colvo_pack = 10000;
 int setup_delay = 1000;                                 // настраиваем задержку между передачами при настройке
 int test_delay = 300-300;                               // настраиваем задержку между передачами при тесте
 int butt_count = 1;
@@ -39,7 +38,7 @@ if(flag_router == 5){
   flag_router=0;
   }
 
-  S_Serial.println("56.45205 84.96131 450 1.5 50 2");
+  S_Serial.println("56.45205 84.96131 450 1.5 50 2");     // отправляем пакет
   read_SSerial();
  delay(setup_delay);
 
@@ -120,7 +119,7 @@ if (digitalRead(PB4)==true){
   delay(100);
   }  
 
-  if(millis()-start__time>=300000){
+  if(millis()-start__time>=300000){                 // устанавливаем длительность теста равную 5 минутам
     while(true){
     S_Serial.println("ALL PACK END");
   delay(100);
@@ -133,7 +132,7 @@ if (digitalRead(PB4)==true){
 }   
     }}
   
-S_Serial.println("56.45205 84.96131 450 1.5 50 2");
+S_Serial.println("56.45205 84.96131 450 1.5 50 2");       // отправляем пакет в режиме теста
   delay(300);
  
   while(S_Serial.available()){
