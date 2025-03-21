@@ -1,7 +1,7 @@
 #pragma once
 #include<SoftSerial.h>
 
-SoftSerial S_Serial(PB0,PA0,3);
+static SoftSerial S_Serial(PB0,PA0,3);
 
 void send_command(String command);
 void set_power(int power);
