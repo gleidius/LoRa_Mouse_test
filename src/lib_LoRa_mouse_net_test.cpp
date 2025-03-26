@@ -1,5 +1,6 @@
 #include"lib_LoRa_mouse_net_test.h"
 
+
 void send_command(String command){                // функиця отправки AT-команды в Е52
     S_Serial.println(command);
     delay(100); 

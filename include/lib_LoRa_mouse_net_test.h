@@ -1,7 +1,12 @@
 #pragma once
 #include<SoftSerial.h>
+#include <HardwareSerial.h>
 
-static SoftSerial S_Serial(PB0,PA0,3);
+
+static uint8_t UART2_TX = PA2;
+static uint8_t UART2_RX = PA3;
+static HardwareSerial S_Serial(UART2_RX, UART2_TX);
+
 
 void send_command(String command);
 void set_power(int power);
