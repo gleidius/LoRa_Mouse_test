@@ -180,6 +180,8 @@ void loop(){
   
   display.clearDisplay();
   display.setCursor(0, 0);
+  display.println("    === MASTER ===");
+
   display.print("Power (SW3), dBm: ");
   int Power_Xpos = display.getCursorX();        // позиция Х курсора при написании мощности
   int Power_Ypos = display.getCursorY();        // позиция Y курсора при написании мощности
