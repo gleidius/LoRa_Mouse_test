@@ -150,23 +150,21 @@ void setup() {
   send_command("AT+SRC_ADDR=1,0");                   // задаем собственный адрес
   display.println("src_addr_OK");
   display.display();
-
   send_command("AT+DST_ADDR=5,0");                     // задаем целевой адрес
   display.println("dst_addr_OK");
   display.display();
-  
   send_command("AT+POWER=15,0");                      // задаем мощность передатчика  
   display.println("power_OK");
   display.display();
- 
   send_command("AT+OPTION=1,0");                       // задаем режим передачи (1 - unicast (одноадресная))
   display.println("unicast_OK");
   display.display();
-
   send_command("AT+RATE=0");                          // устанавливаем режим скорость/дальность
   display.println("rate_OK");
   display.display();
-
+  delay(1000);
+  
+ 
   }
 
 void loop(){
@@ -178,7 +176,26 @@ void loop(){
   int enc_count = 15;
   
   MySerial1.println("Режим установления сети");
-  int flag_router=0;
+  int flag_router=0; 
+  
+  display.clearDisplay();
+  display.setCursor(0, 0);
+  display.print("Power (SW3), dBm: ");
+  int Power_Xpos = display.getCursorX();        // позиция Х курсора при написании мощности
+  int Power_Ypos = display.getCursorY();        // позиция Y курсора при написании мощности
+  display.println("15");
+
+  display.print("Pause (SW2), ms: ");
+  int Pause_Xpos = display.getCursorX();        // позиция Х курсора при написании мощности
+  int Pause_Ypos = display.getCursorY();        // позиция Y курсора при написании мощности
+  display.println("300");
+
+  display.print("S/R (SW4): ");
+  int SR_Xpos = display.getCursorX();        // позиция Х курсора при написании мощности
+  int SR_Ypos = display.getCursorY();        // позиция Y курсора при написании мощности
+  display.println("0");
+
+  display.display();
   while(true){
     
   flag_router++;
@@ -196,16 +213,36 @@ void loop(){
   switch_count++;
   if(switch_count==1){
     test_delay = set_pause(300);
+
+    display.setCursor(Pause_Xpos, Pause_Ypos);
+    display.fillRect(Pause_Xpos, Pause_Ypos, 128, Pause_Ypos + 8, SSD1306_BLACK);
+    display.print("300");
+    display.display();
   }
   if(switch_count==2){
     set_pause(1000);
+
+    display.setCursor(Pause_Xpos, Pause_Ypos);
+    display.fillRect(Pause_Xpos, Pause_Ypos, 128, Pause_Ypos + 8, SSD1306_BLACK);
+    display.print("1000");
+    display.display();
   }
   if(switch_count==3){
     set_pause(3000);
+
+    display.setCursor(Pause_Xpos, Pause_Ypos);
+    display.fillRect(Pause_Xpos, Pause_Ypos, 128, Pause_Ypos + 8, SSD1306_BLACK);
+    display.print("3000");
+    display.display();
   }
   if(switch_count==4){
     set_pause(5000);
     switch_count =0;
+
+    display.setCursor(Pause_Xpos, Pause_Ypos);
+    display.fillRect(Pause_Xpos, Pause_Ypos, 128, Pause_Ypos + 8, SSD1306_BLACK);
+    display.print("5000");
+    display.display();
   }
 }
 
@@ -213,11 +250,16 @@ if (digitalRead(STM_SW3) == true) {              // переключаем мо�
 enc_count--;
 set_power(enc_count);                        // устанавливаем мощность
 
+display.setCursor(Power_Xpos, Power_Ypos);
+display.fillRect(Power_Xpos, Power_Ypos, 128, Power_Ypos + 8, SSD1306_BLACK);
+display.print(enc_count);
+display.display();
+
 if (enc_count == -9) {
   enc_count = 16;
 }
 read_SSerial();
-delay(500);
+//delay(500);
 }
 
 if(digitalRead(STM_SW4)== true){                  // Переключение скорости передачи
@@ -226,12 +268,22 @@ if(butt_count==1){
   setup_delay = 1000;
   set_rs(0);
   MySerial1.println("S/R=0");
+
+  display.setCursor(SR_Xpos, SR_Ypos);
+  display.fillRect(SR_Xpos, SR_Ypos, 128, SR_Ypos + 8, SSD1306_BLACK);
+  display.print("0");
+  display.display();
   
 }
 if(butt_count == 2){
   setup_delay = 1000;
   set_rs(1);
   MySerial1.println("S/R=1");
+
+  display.setCursor(SR_Xpos, SR_Ypos);
+  display.fillRect(SR_Xpos, SR_Ypos, 128, SR_Ypos + 8, SSD1306_BLACK);
+  display.print("1");
+  display.display();
   
 }
 if(butt_count ==3) {
@@ -239,6 +291,11 @@ if(butt_count ==3) {
   set_rs(2);
   butt_count = 0;
   MySerial1.println("S/R=2");
+
+  display.setCursor(SR_Xpos, SR_Ypos);
+  display.fillRect(SR_Xpos, SR_Ypos, 128, SR_Ypos + 8, SSD1306_BLACK);
+  display.print("2");
+  display.display();
 }
 S_Serial.print("AT+INFO=?"); 
 read_SSerial();
