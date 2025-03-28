@@ -149,7 +149,7 @@ void setup() {
     MySerial1.println("Настройка узла...");
   
 
-  send_command("AT+POWER=15,0");              // задаем изначальную мощность
+  send_command("AT+POWER=5,0");              // задаем изначальную мощность
   send_command("AT+SRC_ADDR=2,0");            // задаем собственный адрес (!!!Лучше использовать 2-3-4!!!(1 - master, 5 - target))
   send_command("AT+DST_ADDR=232,0");          // задаем целевой адрес
   send_command("AT+OPTION=1,0");              // задаем режим передачи (1 - unicast (одноадресная))

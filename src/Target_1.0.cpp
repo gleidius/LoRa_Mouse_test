@@ -154,7 +154,7 @@ void setup() {
   char buff2[NUM_KEYS];
 
   MySerial1.println("Настройка приемника");
-  send_command("AT+POWER=15,0");                          // устанавливаем базовую мощность
+  send_command("AT+POWER=10,0");                          // устанавливаем базовую мощность
   send_command("AT+SRC_ADDR=5,0");                        // задаем собственный адрес
   send_command("AT+DST_ADDR=1,0");                        // задаем целевой адрес
   send_command("AT+OPTION=1,0");                          // задаем режим передачи (1 - unicast (одноадресная))
@@ -174,12 +174,14 @@ void loop() {
   int flag_router = 0;
 
   while (true) {
-
+/*
     flag_router++;
     if (flag_router == 50) {
-      send_command("AT+ROUTER_READ=?");                   // выводим информацию о таблице маршрутизации
-      flag_router = 0;
-    }
+      S_Serial.print("AT+ROUTER_READ=?");           // выводим информацию о устройстве (на всякий)
+      read_SSerial();
+      flag_router=0;                // выводим информацию о таблице маршрутизации
+     
+    }*/
 
     int del_preamb = 0;
     char buff_send[100] = "not";

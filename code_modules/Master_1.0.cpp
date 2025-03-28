@@ -164,7 +164,7 @@ void setup()
   send_command("AT+DST_ADDR=5,0"); // задаем целевой адрес
   display.println("dst_addr_OK");
   display.display();
-  send_command("AT+POWER=15,0"); // задаем мощность передатчика
+  send_command("AT+POWER=-8,0"); // задаем мощность передатчика
   display.println("power_OK");
   display.display();
   send_command("AT+OPTION=1,0"); // задаем режим передачи (1 - unicast (одноадресная))
@@ -196,7 +196,7 @@ void loop()
   display.print("Power (3), dBm: ");
   int Power_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
   int Power_Ypos = display.getCursorY(); // позиция Y курсора при написании мощности
-  display.println("15");
+  display.println("-8");
 
   display.print("Pause (2), ms: ");
   int Pause_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
