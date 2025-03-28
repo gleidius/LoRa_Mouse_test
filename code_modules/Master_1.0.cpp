@@ -112,7 +112,7 @@ int set_pause(int pause)
 { // функция установки паузы передачи
   MySerial1.print("Пауза, мс: ");
   MySerial1.println(pause);
-  int test_delay = pause - 300;
+  int test_delay = pause;
   return (test_delay);
 }
 
@@ -180,7 +180,7 @@ void loop()
 {
   bool connect_s = 0;
   int setup_delay = 1000;     // настраиваем задержку между передачами при настройке
-  int test_delay = 300 - 300; // настраиваем задержку между передачами при тесте
+  int test_delay = 600; // настраиваем задержку между передачами при тесте
   int butt_count = 1;
   int switch_count = 0;
   int enc_count = 15;
@@ -201,7 +201,7 @@ void loop()
   display.print("Pause (2), ms: ");
   int Pause_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
   int Pause_Ypos = display.getCursorY(); // позиция Y курсора при написании мощности
-  display.println("300");
+  display.println("600");
 
   display.print("S/R (4): ");
   int SR_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
@@ -273,34 +273,43 @@ void loop()
       switch_count++;
       if (switch_count == 1)
       {
-        test_delay = set_pause(300);
+        test_delay = set_pause(600);
 
         display.setCursor(Pause_Xpos, Pause_Ypos);
         display.fillRect(Pause_Xpos, Pause_Ypos, 128, 8, SSD1306_BLACK);
-        display.print("300");
+        display.print("600");
         display.display();
       }
       if (switch_count == 2)
       {
-        set_pause(1000);
+        test_delay = set_pause(1200);
 
         display.setCursor(Pause_Xpos, Pause_Ypos);
         display.fillRect(Pause_Xpos, Pause_Ypos, 128, 8, SSD1306_BLACK);
-        display.print("1000");
+        display.print("1200");
         display.display();
       }
       if (switch_count == 3)
       {
-        set_pause(3000);
+        test_delay = set_pause(2000);
+
+        display.setCursor(Pause_Xpos, Pause_Ypos);
+        display.fillRect(Pause_Xpos, Pause_Ypos, 128, 8, SSD1306_BLACK);
+        display.print("2000");
+        display.display();
+      }
+      if (switch_count == 4)
+      {
+        test_delay = set_pause(3000);
 
         display.setCursor(Pause_Xpos, Pause_Ypos);
         display.fillRect(Pause_Xpos, Pause_Ypos, 128, 8, SSD1306_BLACK);
         display.print("3000");
         display.display();
       }
-      if (switch_count == 4)
+      if (switch_count == 5)
       {
-        set_pause(5000);
+        test_delay = set_pause(5000);
         switch_count = 0;
 
         display.setCursor(Pause_Xpos, Pause_Ypos);
@@ -431,15 +440,15 @@ void loop()
         }
 
         S_Serial.println("56.45205 84.96131 450 1.5 50 2"); // отправляем пакет в режиме теста
-        delay(300);
-
+        //delay(300);
+        /*
         while (S_Serial.available())
         {
           byte buff123 = S_Serial.read();
           // MySerial1.print(buff123);
           buff_send[i] = buff123;
           i++;
-        }
+        }*/
 
         scet++;
         String text = "Отправлено пакетов:";

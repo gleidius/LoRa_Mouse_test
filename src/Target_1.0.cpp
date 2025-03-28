@@ -257,6 +257,8 @@ void loop() {
         text.concat(String(tx_pack));
         MySerial1.println(text); //
         MySerial1.println("tftPrintln(Тест завершен)");
+        while (true) {
+        }
       }
     }
 
