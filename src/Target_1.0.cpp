@@ -163,6 +163,36 @@ void setup() {
 
 void loop() {
 
+  display.clearDisplay();
+  display.setCursor(0, 0);
+  display.println("    === MASTER ===");
+
+  display.print("Power (3), dBm: ");
+  int Power_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
+  int Power_Ypos = display.getCursorY(); // позиция Y курсора при написании мощности
+  display.println("10");
+
+  display.print("S/R (4): ");
+  int SR_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
+  int SR_Ypos = display.getCursorY(); // позиция Y курсора при написании мощности
+  display.println("0");
+
+  display.print("Mesh: ");
+  int Mesh_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
+  int Mesh_Ypos = display.getCursorY(); // позиция Y курсора при написании мощности
+  display.println("Discon");
+
+  display.print("Status (5): ");
+  int Stat_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
+  int Stat_Ypos = display.getCursorY(); // позиция Y курсора при написании мощности
+  display.println("Sett");
+
+  display.print("Received: ");
+  int RX_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
+  int RX_Ypos = display.getCursorY(); // позиция Y курсора при написании мощности
+  display.println("0");
+  display.display();
+
   MySerial1.println("Гостов к тесту");
 
   int tx_pack = 0;
@@ -205,12 +235,27 @@ void loop() {
       butt_count++;
       if (butt_count == 1) {
         set_rs(0);
+
+        display.setCursor(SR_Xpos, SR_Ypos);
+        display.fillRect(SR_Xpos, SR_Ypos, 128, 8, SSD1306_BLACK);
+        display.print("0");
+        display.display();
       }
       if (butt_count == 2) {
         set_rs(1);
+
+        display.setCursor(SR_Xpos, SR_Ypos);
+        display.fillRect(SR_Xpos, SR_Ypos, 128, 8, SSD1306_BLACK);
+        display.print("1");
+        display.display();
       }
       if (butt_count == 3) {
         set_rs(2);
+
+        display.setCursor(SR_Xpos, SR_Ypos);
+        display.fillRect(SR_Xpos, SR_Ypos, 128, 8, SSD1306_BLACK);
+        display.print("2");
+        display.display();
         butt_count = 0;
       }
       read_SSerial();
@@ -226,6 +271,11 @@ void loop() {
         text.concat(String(tx_pack));
         MySerial1.println(text); //
         MySerial1.println("Mesh сеть потеряна");
+
+      display.fillRect(Mesh_Xpos, Mesh_Ypos, 128, 8, SSD1306_BLACK);
+      display.setCursor(Mesh_Xpos, Mesh_Ypos);
+      display.print("Discon");
+      display.display();
       }
 
       continue;
@@ -235,6 +285,11 @@ void loop() {
       MySerial1.println("Тест начинается...");
       tx_pack = 0;
       flag_router = 0;
+
+      display.setCursor(Stat_Xpos, Stat_Ypos);
+      display.fillRect(Stat_Xpos, Stat_Ypos, 128, 8, SSD1306_BLACK);
+      display.print("Test");
+      display.display();
     }
 
     else if (sendd.startsWith("TEST END D") == true) {
@@ -242,6 +297,11 @@ void loop() {
       text.concat(String(tx_pack));
       MySerial1.println(text);
       MySerial1.println("Тест завершен досрочно");
+
+      display.setCursor(Stat_Xpos, Stat_Ypos);
+      display.fillRect(Stat_Xpos, Stat_Ypos, 128, 8, SSD1306_BLACK);
+      display.print("Interrupt");
+      display.display();
       while (true) {
       }
     }
@@ -254,11 +314,27 @@ void loop() {
       MySerial1.println(text); //
       MySerial1.println("tftPrintln(Mesh сеть подключена)");
 
+      display.fillRect(Mesh_Xpos, Mesh_Ypos, 128, 8, SSD1306_BLACK);
+      display.setCursor(Mesh_Xpos, Mesh_Ypos);
+      display.print("Connect");
+      display.display();
+
+      display.setCursor(RX_Xpos, RX_Ypos);
+      display.fillRect(RX_Xpos, RX_Ypos, 128, 8, SSD1306_BLACK);
+      display.print(tx_pack);
+      display.display();
+
       if (sendd.startsWith("ALL PACK END") == true) {                     // отрабатываем окончание передачи
         String text = "Принято пакетов:" ;
         text.concat(String(tx_pack));
         MySerial1.println(text); //
         MySerial1.println("tftPrintln(Тест завершен)");
+
+        display.setCursor(Stat_Xpos, Stat_Ypos);
+        display.fillRect(Stat_Xpos, Stat_Ypos, 128, 8, SSD1306_BLACK);
+        display.print("end");
+        display.display();
+
         while (true) {
         }
       }
