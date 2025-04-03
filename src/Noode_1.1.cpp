@@ -149,7 +149,7 @@ void setup() {
     MySerial1.println("Настройка узла...");
   
 
-  send_command("AT+POWER=5,0");              // задаем изначальную мощность
+  send_command("AT+POWER=0,0");              // задаем изначальную мощность
   send_command("AT+SRC_ADDR=2,0");            // задаем собственный адрес (!!!Лучше использовать 2-3-4!!!(1 - master, 5 - target))
   send_command("AT+DST_ADDR=232,0");          // задаем целевой адрес
   send_command("AT+OPTION=1,0");              // задаем режим передачи (1 - unicast (одноадресная))
@@ -158,6 +158,22 @@ void setup() {
 }
 
 void loop() {
+
+  display.clearDisplay();
+  display.setCursor(0, 0);
+  display.println("    === NOODE ===");
+
+  display.print("Power (3), dBm: ");
+  int Power_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
+  int Power_Ypos = display.getCursorY(); // позиция Y курсора при написании мощности
+  display.println("0");
+
+  display.print("S/R (4): ");
+  int SR_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
+  int SR_Ypos = display.getCursorY(); // позиция Y курсора при написании мощности
+  display.println("0");
+  display.display();
+
   int butt_count = 1;
   int switch_count = 15;
   while (true) {
@@ -165,8 +181,9 @@ void loop() {
     if (digitalRead(STM_SW3) == true) {              // переключаем мощность
       switch_count--;
       set_power(switch_count);                        // устанавливаем мощность
-      display.print("Power = ");
-      display.println(switch_count);
+      display.setCursor(Power_Xpos, Power_Ypos);
+      display.fillRect(Power_Xpos, Power_Ypos, 128, 8, SSD1306_BLACK);
+      display.print(switch_count);
       display.display();
       if (switch_count == -9) {
         switch_count = 16;
@@ -174,9 +191,6 @@ void loop() {
 
       read_SSerial();
       delay(500);
-      display.setCursor(0, 0);
-      display.clearDisplay();
-      display.display();
     }
 
     if (digitalRead(STM_SW4) == true) {               // Переключение скорости передачи
@@ -184,26 +198,29 @@ void loop() {
 
       if (butt_count == 1) {
         set_rs(0);
-        display.print("R/S = 0");
-      display.display();
+        display.setCursor(SR_Xpos, SR_Ypos);
+        display.fillRect(SR_Xpos, SR_Ypos, 128, 8, SSD1306_BLACK);
+        display.print("0");
+        display.display();
       }
       if (butt_count == 2) {
         set_rs(1);
-        display.print("R/S = 1");
-      display.display();
+        display.setCursor(SR_Xpos, SR_Ypos);
+        display.fillRect(SR_Xpos, SR_Ypos, 128, 8, SSD1306_BLACK);
+        display.print("1");
+        display.display();
       }
       if (butt_count == 3) {
         set_rs(2);
-        display.print("R/S = 2");
-      display.display();
+        display.setCursor(SR_Xpos, SR_Ypos);
+        display.fillRect(SR_Xpos, SR_Ypos, 128, 8, SSD1306_BLACK);
+        display.print("2");
+        display.display();
         butt_count = 0;
       }
  
       read_SSerial();
       delay(500);
-      display.setCursor(0, 0);
-      display.clearDisplay();
-      display.display();
 
     }
   }
