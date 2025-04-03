@@ -165,7 +165,7 @@ void loop() {
 
   display.clearDisplay();
   display.setCursor(0, 0);
-  display.println("    === MASTER ===");
+  display.println("    === TARGET ===");
 
   display.print("Power (3), dBm: ");
   int Power_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
