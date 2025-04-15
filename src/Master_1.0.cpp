@@ -180,7 +180,7 @@ void loop()
 {
   bool connect_s = 0;
   int setup_delay = 1000;     // настраиваем задержку между передачами при настройке
-  int test_delay = 600; // настраиваем задержку между передачами при тесте
+  int test_delay = 300; // настраиваем задержку между передачами при тесте
   int butt_count = 1;
   int switch_count = 0;
   int enc_count = 15;
@@ -201,7 +201,7 @@ void loop()
   display.print("Pause (2), ms: ");
   int Pause_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
   int Pause_Ypos = display.getCursorY(); // позиция Y курсора при написании мощности
-  display.println("600");
+  display.println("300");
 
   display.print("S/R (4): ");
   int SR_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
@@ -273,20 +273,20 @@ void loop()
       switch_count++;
       if (switch_count == 1)
       {
-        test_delay = set_pause(600);
+        test_delay = set_pause(300);
 
         display.setCursor(Pause_Xpos, Pause_Ypos);
         display.fillRect(Pause_Xpos, Pause_Ypos, 128, 8, SSD1306_BLACK);
-        display.print("600");
+        display.print("300");
         display.display();
       }
       if (switch_count == 2)
       {
-        test_delay = set_pause(1200);
+        test_delay = set_pause(1000);
 
         display.setCursor(Pause_Xpos, Pause_Ypos);
         display.fillRect(Pause_Xpos, Pause_Ypos, 128, 8, SSD1306_BLACK);
-        display.print("1200");
+        display.print("1000");
         display.display();
       }
       if (switch_count == 3)
