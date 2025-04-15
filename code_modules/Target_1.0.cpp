@@ -154,7 +154,7 @@ void setup() {
   char buff2[NUM_KEYS];
 
   MySerial1.println("Настройка приемника");
-  send_command("AT+POWER=10,0");                          // устанавливаем базовую мощность
+  send_command("AT+POWER=1,0");                          // устанавливаем базовую мощность
   send_command("AT+SRC_ADDR=5,0");                        // задаем собственный адрес
   send_command("AT+DST_ADDR=1,0");                        // задаем целевой адрес
   send_command("AT+OPTION=1,0");                          // задаем режим передачи (1 - unicast (одноадресная))
@@ -170,7 +170,7 @@ void loop() {
   display.print("Power (3), dBm: ");
   int Power_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
   int Power_Ypos = display.getCursorY(); // позиция Y курсора при написании мощности
-  display.println("10");
+  display.println("1");
 
   display.print("S/R (4): ");
   int SR_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности

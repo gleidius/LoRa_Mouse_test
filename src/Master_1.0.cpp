@@ -180,7 +180,7 @@ void loop()
 {
   bool connect_s = 0;
   int setup_delay = 1000;     // настраиваем задержку между передачами при настройке
-  int test_delay = 300; // настраиваем задержку между передачами при тесте
+  int test_delay = 600; // настраиваем задержку между передачами при тесте
   int butt_count = 1;
   int switch_count = 0;
   int enc_count = 15;
@@ -201,7 +201,7 @@ void loop()
   display.print("Pause (2), ms: ");
   int Pause_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
   int Pause_Ypos = display.getCursorY(); // позиция Y курсора при написании мощности
-  display.println("300");
+  display.println("600");
 
   display.print("S/R (4): ");
   int SR_Xpos = display.getCursorX(); // позиция Х курсора при написании мощности
@@ -230,13 +230,6 @@ void loop()
     String sendd_settings = "0";
     char buff_send_settings[100] = "not";
     int j = 0;
-    /*
-    flag_router++;
-    if(flag_router == 5){
-      S_Serial.print("AT+ROUTER_READ=?");           // выводим информацию о устройстве (на всякий)
-      read_SSerial();
-      flag_router=0;
-    }*/
 
     S_Serial.println("56.45205 84.96131 450 1.5 50 2"); // отправляем пакет
     delay(300);
@@ -273,20 +266,20 @@ void loop()
       switch_count++;
       if (switch_count == 1)
       {
-        test_delay = set_pause(300);
+        test_delay = set_pause(600);
 
         display.setCursor(Pause_Xpos, Pause_Ypos);
         display.fillRect(Pause_Xpos, Pause_Ypos, 128, 8, SSD1306_BLACK);
-        display.print("300");
+        display.print("600");
         display.display();
       }
       if (switch_count == 2)
       {
-        test_delay = set_pause(1000);
+        test_delay = set_pause(1200);
 
         display.setCursor(Pause_Xpos, Pause_Ypos);
         display.fillRect(Pause_Xpos, Pause_Ypos, 128, 8, SSD1306_BLACK);
-        display.print("1000");
+        display.print("1200");
         display.display();
       }
       if (switch_count == 3)
@@ -374,8 +367,6 @@ void loop()
         display.print("2");
         display.display();
       }
-      // S_Serial.print("AT+INFO=?");
-      // read_SSerial();
     }
 
                               //          =========================== РЕЖИМ ТЕСТА ============================
@@ -416,11 +407,11 @@ void loop()
         delay(100);
       }  */
 
-        if (millis() - start__time >= 300000)
-        { // устанавливаем длительность теста равную 5 минутам
+        if (millis() - start__time >= 300000)                           // устанавливаем длительность теста равную 5 минутам
+        { 
           while (true)
           {
-            S_Serial.println("ALL PACK END"); // спамим командой окончания пакетов
+            S_Serial.println("ALL PACK END");                                 // спамим командой окончания пакетов
             delay(100);
 
             display.setCursor(Stat_Xpos, Stat_Ypos);
@@ -439,16 +430,7 @@ void loop()
           }
         }
 
-        S_Serial.println("56.45205 84.96131 450 1.5 50 2"); // отправляем пакет в режиме теста
-        //delay(300);
-        /*
-        while (S_Serial.available())
-        {
-          byte buff123 = S_Serial.read();
-          // MySerial1.print(buff123);
-          buff_send[i] = buff123;
-          i++;
-        }*/
+        S_Serial.println("56.45205 84.96131 450 1.5 50 2");               // отправляем пакет в режиме теста
 
         scet++;
         String text = "Отправлено пакетов:";
@@ -463,7 +445,7 @@ void loop()
         sendd = String(buff_send);
 
         if (sendd.startsWith("SUCCESS") == true)
-        {                                       // отрабатываем успешную передачу пакета
+        {                                                             // отрабатываем успешную передачу пакета
           MySerial1.println("Пакет доставлен"); //
         }
         else
@@ -471,8 +453,8 @@ void loop()
           MySerial1.println("Пакет НЕ доставлен");
         }
 
-        if (digitalRead(STM_SW5) == false)
-        { // прерывание теста при переключении STM_SW5
+        if (digitalRead(STM_SW5) == false)                          // прерывание теста при переключении STM_SW5
+        { 
           MySerial1.println("Тест досрочно завершен");
 
           display.setCursor(Stat_Xpos, Stat_Ypos);
@@ -488,8 +470,9 @@ void loop()
 
           S_Serial.println("TEST END D");
           delay(100);
-          // Читаем ответ
-          while (S_Serial.available())
+          
+         
+          while (S_Serial.available())                                      // Читаем ответ
           {
             byte buff123 = S_Serial.read();
             MySerial1.write(buff123);
